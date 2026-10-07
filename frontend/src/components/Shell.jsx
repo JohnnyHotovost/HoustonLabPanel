@@ -141,6 +141,7 @@ export default function Shell() {
                   to={path}
                   key={key}
                   data-testid={`nav-${key}`}
+                  title={t(`nav.${key}`)}
                   className={({ isActive }) =>
                     `nav-item ${isActive ? "active" : ""}`
                   }
@@ -205,8 +206,8 @@ export default function Shell() {
         </div>
       </aside>
       <div className="main-shell">
-        <header className="topbar">
-          <div className="topbar-breadcrumb">
+        <header className="topbar" data-testid="topbar">
+          <div className="topbar-start">
             <button
               className="icon-button mobile-menu"
               data-testid="mobile-menu-button"
@@ -215,15 +216,6 @@ export default function Shell() {
             >
               <Menu size={18} />
             </button>
-            <House size={15} />
-            <span className="breadcrumb-divider">/</span>
-            <span data-testid="topbar-page">
-              {t(
-                `nav.${["locations"].includes(section) ? "inventory" : section}`,
-              )}
-            </span>
-          </div>
-          <div className="topbar-actions">
             <button
               className="top-search"
               data-testid="global-search-button"
@@ -233,7 +225,14 @@ export default function Shell() {
               <span>{t("nav.search")}</span>
               <kbd>Ctrl K</kbd>
             </button>
-            <span className="topbar-separator" />
+            <div className="topbar-breadcrumb">
+              <ChevronRight size={13} />
+              <span data-testid="topbar-page">
+                {t(`nav.${["locations"].includes(section) ? "inventory" : section}`)}
+              </span>
+            </div>
+          </div>
+          <div className="topbar-actions">
             <IconBtn
               icon={Bell}
               label={t("overview.attention")}

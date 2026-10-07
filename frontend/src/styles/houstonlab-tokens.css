@@ -1,0 +1,73 @@
+/*
+ * HoustonLabOS visual reference → HoustonLab Panel.
+ * Source: JohnnyHotovost/HoustonLabOS, frontend/src/index.css + App.css.
+ * Presentation tokens only. No legacy contracts, enum values or business logic.
+ * Fonts are bundled with the application, including Czech glyphs.
+ */
+:root {
+  --hl-bg: #0a0a0c;
+  --hl-sidebar: #0e0e11;
+  --hl-card: #121215;
+  --hl-card-hover: #17171a;
+  --hl-elevated: #1a1a1e;
+  --hl-input: #121215;
+  --hl-border: #27272a;
+  --hl-border-subtle: #1f1f22;
+  --hl-border-hover: #3f3f46;
+  --hl-text: #fafafa;
+  --hl-text-secondary: #d4d4d8;
+  --hl-text-muted: #a1a1aa;
+  --hl-text-dim: #85858f;
+  --hl-accent: #34d399;
+  --hl-action: #10b981;
+  --hl-accent-cyan: #67e8f9;
+  --hl-accent-soft: rgb(52 211 153 / 8%);
+  --hl-accent-border: rgb(52 211 153 / 22%);
+  --hl-focus: rgb(52 211 153 / 22%);
+  --hl-warning: #fbbf24;
+  --hl-danger: #f87171;
+  --hl-font-sans: "Geist", sans-serif;
+  --hl-font-mono: "JetBrains Mono", monospace;
+  --hl-radius-card: 12px;
+  --hl-radius-control: 8px;
+  --hl-sidebar-width: 240px;
+  --hl-motion-fast: 160ms;
+
+  /* Bridge existing Panel layout primitives to the reference palette. */
+  --bg: var(--hl-bg);
+  --sidebar: var(--hl-sidebar);
+  --surface: var(--hl-card);
+  --surface2: var(--hl-elevated);
+  --surface3: #27272a;
+  --text: var(--hl-text);
+  --secondary: var(--hl-text-muted);
+  --muted: var(--hl-text-dim);
+  --accent: var(--hl-accent);
+  --green: var(--hl-accent);
+  --amber: var(--hl-warning);
+  --red: var(--hl-danger);
+  --border: var(--hl-border);
+  --subtle: var(--hl-border-subtle);
+
+  /* shadcn color bridge. Its components remain infrastructure, not the identity. */
+  --background: 240 9% 4%;
+  --foreground: 0 0% 98%;
+  --card: 240 8% 8%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 7% 11%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 160 84% 39%;
+  --primary-foreground: 164 86% 8%;
+  --secondary-foreground: 0 0% 98%;
+  --muted-foreground: 240 5% 65%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 85% 70%;
+  --destructive-foreground: 0 0% 98%;
+  --input: 240 4% 16%;
+  --ring: 158 64% 52%;
+  --hl-ui-secondary: 240 4% 11%;
+  --hl-ui-muted: 240 4% 11%;
+  --hl-ui-accent: 240 4% 13%;
+  --hl-ui-border: 240 4% 16%;
+  --radius: 0.5rem;
+}

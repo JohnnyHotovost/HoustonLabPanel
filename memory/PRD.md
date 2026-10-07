@@ -32,7 +32,7 @@ Primary target: a private LAN on a Proxmox home server, with authenticated acces
 3. Recursively nested locations and movable containers; location type does not constrain hierarchy.
 4. First local owner setup, Argon2id passwords, secure server sessions, server-side permissions, validated input, auth rate limiting, safe uploads, secrets outside Git.
 5. EN/CZ translation keys throughout UI; persistent per-user language; never translate user content; units independent of language.
-6. Calm premium technical dark design using supplied tokens, Inter, restrained surfaces and borders. No meaningless charts or demo statistics.
+6. Calm premium technical dark design. Updated visual authority: the owner's HoustonLabOS repository, using neutral graphite, restrained emerald accents, Geist and JetBrains Mono, subtle surfaces/borders and reference-consistent density. No meaningless charts or demo statistics. The original Inter/blue proposal is superseded only for presentation by the explicit design-reference request below.
 7. Meaningful overview: attention, upcoming, real inventory/asset/task counts, audit activity, quick add.
 8. Vehicle lifecycle including sold distinct from archive; relevant configurable components, immutable mileage/history, maintenance and service integration.
 9. Maintenance definitions + computed state + immutable completion records; single service session groups multiple records and may consume inventory.
@@ -82,6 +82,23 @@ Full v1 additionally requires repairs, verified service reference, fluid compati
 - Final handover verification: guarded fixture cleanup committed; users=0, entities=0, households=0; migrations retained at `acd8fba21018`; QA uploads and temporary login credentials removed. `/api/health` returns PostgreSQL operational and `/api/auth/status` returns `setup_required: true`.
 
 ## Prioritized backlog / next tasks
+
+### Visual-reference update — 2026-10-07
+
+User request:
+> Use the existing HoustonLabOS repository as the primary visual reference for the new HoustonLab Panel. Reuse its visual language and design system where appropriate: overall dark theme; sidebar/navigation styling; typography hierarchy; surfaces and cards; buttons; forms; spacing; borders; interaction states; general density and visual character.
+> Do NOT inherit the old application's backend architecture, data model, or business logic. The new HoustonLab must keep the architecture, PostgreSQL data model, maintenance engine, entity relationships, i18n, security requirements and workflows defined in the new Master Build Specification. Treat HoustonLabOS as a DESIGN REFERENCE, not as the technical foundation.
+
+- Reference provided by owner: https://github.com/JohnnyHotovost/HoustonLabOS. Inspected its actual frontend styles, AppShell, Dashboard, Login, form and badge components, plus design guidelines; no legacy backend code is imported or executed.
+- Added centralized presentation tokens and a responsive visual layer in `frontend/src/styles/houstonlab-tokens.css` and `houstonlab-visual.css`.
+- Adopted neutral graphite surfaces, emerald accents/actions/focus, reference-inspired lightning wordmark, locally bundled Geist + JetBrains Mono (including Czech glyphs), monospaced technical labels, outlined active navigation, segmented tabs, refined cards/rows/forms/dialogs/badges/hover/disabled states.
+- Retained new Panel navigation, route contracts, data-first overview and all workflows; 240px sidebar with existing tablet rail/mobile drawer behavior. No legacy jobs/clients/business metrics or default credentials adopted.
+- Moved existing command-search control to the reference-style left-side topbar; original search handler, Ctrl+K, notifications, add/profile actions and role gates retained.
+- Frontend production build passed. Testing report `iteration_3.json`: 5/5 focused API checks passed; desktop/tablet/mobile EN/CZ navigation, labels, forms and visual states verified across 360–1920px; viewer writes denied. Final manual screenshot confirms emerald input focus, dialog closing and command-search behavior.
+- Backend implementation/migration hashes remain unchanged. No new migration, maintenance calculation, relation, security contract or API behavior was introduced. Existing unauthenticated `/auth/me` returns401 intentionally; do not suppress this security behavior for cosmetic console cleanliness.
+- Temporary MEMBER/VIEWER QA accounts only; no household/business fixtures were added. Pre-change fingerprints captured for all20 persistent user/business tables (sessions/rate-limit bookkeeping excluded) for exact post-cleanup verification.
+- Final cleanup removed only the two exact QA user IDs, their sessions and QA-authored preference audit events. No QA accounts remain. Backend/migration hashes are still byte-identical. Business fingerprints changed during the test window because the real OWNER independently changed preferences, created a vehicle and defined maintenance (verified by actor role and timestamps); those owner-created records and all existing data were preserved, never reverted to the earlier snapshot. The other13 persistent table fingerprints remained identical. No blanket cleanup/reset was run.
+- See `memory/DESIGN_REFERENCE.md` for the ongoing visual contract and source mapping. All remaining v1 screens must follow this design language without adopting legacy architecture.
 
 ### P0 — integrity and full-v1 blockers
 1. Verified backup/restore (database + files + configuration) and recovery procedures, then LAN/Proxmox installation packaging.

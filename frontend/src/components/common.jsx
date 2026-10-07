@@ -7,6 +7,7 @@ import {
   Loader2,
   CircleAlert,
   PackageOpen,
+  Zap,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
@@ -27,10 +28,8 @@ export const Brand = ({ compact = false }) => {
   const { t } = useI18n();
   return (
     <div className="brand" data-testid="brand">
-      <span className="brand-mark">
-        <span />
-        <span />
-        <span />
+      <span className="brand-mark" aria-hidden="true">
+        <Zap size={19} strokeWidth={1.8} />
       </span>
       {!compact && (
         <span>

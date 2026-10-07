@@ -1,0 +1,49 @@
+{
+  "summary": "Completed visual-contract + auth-role verification on production preview URL with temporary MEMBER/VIEWER accounts. Backend focused pytest checks passed (5/5). Frontend checks passed for visual token parity, navigation integrity, responsive sidebar/drawer behavior, quick-add and full-page form opening/cancel flows, EN/CZ overflow constraints, and viewer write protection (403).",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {
+        "flow": "Unauthenticated initial app bootstrap",
+        "issue": "Browser console shows 401 network errors before login (auth/me + protected bootstrap call), then normal behavior after authentication.",
+        "affected_selectors": []
+      }
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_visual_ui_contract.py",
+    "/app/test_reports/pytest/pytest_results_iteration_3.xml",
+    "/app/.data/design-reference/test-users.json"
+  ],
+  "action_items": [
+    "Optional cleanup: remove temporary TEST_VISUAL_ users by exact IDs from /app/.data/design-reference/test-users.json after main-agent review.",
+    "Populate /app/memory/test_credentials.md for future auth testing continuity (currently empty).",
+    "Decide whether pre-login 401 console errors should be silenced/handled differently in UX telemetry policy."
+  ],
+  "critical_code_review_comments": [
+    "No critical visual-contract or permission-gate regressions found in the tested scope.",
+    "Backend source baseline hashes remained identical to /app/.data/design-reference/backend-before.json (no backend functional changes detected)."
+  ],
+  "updated_files": [
+    "/app/tests/create_visual_test_users.py",
+    "/app/.data/design-reference/test-users.json",
+    "/app/backend/tests/test_visual_ui_contract.py",
+    "/app/test_reports/pytest/pytest_results_iteration_3.xml",
+    "/app/test_reports/iteration_3.json"
+  ],
+  "success_rate": {
+    "backend": "100% (5/5 pytest)",
+    "frontend": "97% (all requested critical visual/auth flows passed; one pre-login console-noise observation)"
+  },
+  "test_credentials": "Required file /app/memory/test_credentials.md exists but is empty. Temporary UI test users created and stored only in ignored /app/.data/design-reference/test-users.json.",
+  "seed_data_creation": "Created 2 temporary users only (TEST_VISUAL_Member id=580ddf20-ba49-45dd-b96f-7f501da4f13d, TEST_VISUAL_Viewer id=d91ac3a9-6898-435e-8469-879dbd2c8785). No household/business records were created.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Screenshots captured at /app/test_reports/screenshots_iter3 (overview, vehicles, inventory, form modal, settings, mobile). Viewer mutation attempt to POST /api/locations returned 403 and no UI write controls were available. EN<->CZ preferences were toggled on MEMBER account for overflow checks and returned to EN.",
+  "rca of the issue": "Console 401 lines are triggered when app initializes unauthenticated and probes protected endpoints; these disappear after successful login and did not block functionality."
+}
