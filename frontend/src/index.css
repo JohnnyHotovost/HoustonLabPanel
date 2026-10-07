@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {--background:216 21% 5%;--foreground:210 22% 96%;--card:218 19% 8%;--card-foreground:210 22% 96%;--popover:216 18% 10%;--popover-foreground:210 22% 96%;--primary:213 100% 68%;--primary-foreground:216 40% 9%;--secondary:218 18% 13%;--secondary-foreground:210 22% 96%;--muted:218 18% 13%;--muted-foreground:218 10% 64%;--accent:218 18% 13%;--accent-foreground:210 22% 96%;--destructive:0 74% 64%;--destructive-foreground:210 22% 96%;--border:216 14% 16%;--input:216 14% 19%;--ring:213 100% 68%;--radius:.5rem;}
+  * {@apply border-border;}
+  body {@apply bg-background text-foreground; margin:0;font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
+  [data-debug-wrapper="true"] {display:contents !important;}
+}

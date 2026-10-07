@@ -1,0 +1,37 @@
+{
+  "summary": "Focused regression completed for PDF preview/upload and service validation. Backend focused pytest checks passed (valid 2-page PDF upload/preview/link, malformed legacy PDF rejection with no DB writes, HOME_ASSET service mileage guard). Frontend checks confirmed valid PDF canvas preview (EN/CS page text and boundary controls), malformed PDF fallback with localized message + download, mobile modal no horizontal overflow, and component translation behavior (generated translated, manual ENGINE not translated).",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_foundation_slice.py",
+    "/app/test_reports/pytest/pytest_results_iteration_2_final.xml"
+  ],
+  "action_items": [
+    "No functional fix required for this focused regression scope.",
+    "Keep QA fixtures intact until main-agent cleanup step is explicitly executed."
+  ],
+  "critical_code_review_comments": [
+    "No new critical code issues found in the scoped regression area."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_foundation_slice.py",
+    "/app/test_reports/iteration_2.json"
+  ],
+  "success_rate": {
+    "backend": "100% (4/4 focused tests passed)",
+    "frontend": "100% (all requested focused checks passed)"
+  },
+  "test_credentials": "Used /app/.data/qa-credentials.json for owner login. /app/memory/test_credentials.md is present but empty.",
+  "seed_data_creation": "Created one QA vehicle with generated components and added one manual ENGINE component for translation verification.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Verified valid preview doc id 5ca298e4-dabe-4792-a760-e26b323078ae in EN+CS and malformed legacy docs fallback in EN+CS. Verified manual ENGINE + generated components on vehicle id 0e6372f5-d1df-4e56-a02c-4962eb984c24.",
+  "rca of the issue": "Original blank-preview regression came from malformed header-only pseudo-PDF fixtures being accepted as valid files. Current checks confirm parser-based rejection for malformed uploads and graceful frontend fallback for already-stored malformed documents while preserving download access."
+}
