@@ -114,7 +114,9 @@ export const Badge = ({ status, children, testId }) => {
       className={`status-badge status-${status}`}
       data-testid={testId || `status-${status}`}
     >
-      <span />
+      {['OVERDUE', 'CRITICAL', 'BLOCKED'].includes(status)
+        ? <CircleAlert size={11} className="badge-alert-icon" aria-hidden="true" />
+        : <span aria-hidden="true" />}
       {children || t(`enum.${status}`)}
     </span>
   );
@@ -166,7 +168,7 @@ export const Empty = ({
     </div>
     <h3 data-testid="empty-title">{title}</h3>
     {description && <p data-testid="empty-description">{description}</p>}
-    {action}
+    {action && <div className="empty-state-action">{action}</div>}
   </div>
 );
 export const PageHeader = ({ title, subtitle, action, back }) => {
@@ -231,11 +233,12 @@ export const Tabs = ({ items, value, onChange, testId = "tabs" }) => (
     ))}
   </div>
 );
-export const SectionHeader = ({ title, meta, to, children }) => {
+export const SectionHeader = ({ title, meta, to, children, icon: Icon, id }) => {
   const { t } = useI18n();
   return (
     <div className="section-heading">
-      <h2 data-testid={`section-${title.replace(/\s/g, "-")}`}>
+      <h2 id={id} data-testid={`section-${title.replace(/\s/g, "-")}`}>
+        {Icon && <Icon size={17} className="section-heading-icon" aria-hidden="true" />}
         {title}
         {meta != null && <span className="section-count">{meta}</span>}
       </h2>

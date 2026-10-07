@@ -582,3 +582,116 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--hl-accent); out
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none!important; transition: none!important; }
 }
+
+/* Clarity pass: retain the palette, shell, grid, spacing scale and corner radii.
+ * Only text hierarchy, existing control affordances and semantic emphasis change.
+ */
+.section-heading h2 { font-size: 18px; font-weight: 600; line-height: 1.4; }
+.section-count { color: var(--hl-text-secondary); font-weight: 500; }
+.section-heading > a { font-weight: 500; }
+.section-heading > a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.form-section-title, .getting-started h2 { font-weight: 600; }
+.summary-label { font-size: 11px; color: var(--hl-text-muted); font-weight: 500; }
+.summary-number > span { color: var(--hl-text-muted); font-size: 12px; }
+.summary-foot { color: var(--hl-text-muted); }
+.summary-foot > svg, .location-arrow, .vehicle-specs > svg { color: var(--hl-text-muted); }
+.summary-card:focus-visible, .location-card:focus-visible,
+.vehicle-card:focus-visible, .document-card:focus-visible { outline-offset: 3px; }
+.summary-card:hover .summary-foot > svg,
+.location-card:hover .location-arrow,
+.vehicle-card:hover .vehicle-specs > svg { color: var(--hl-text); }
+.row-name strong, .row-title strong, .task-title strong,
+.document-body h3, .component-item strong { color: var(--hl-text); font-weight: 500; }
+.row-name small, .row-title small, .task-title small, .location-cell,
+.location-card p, .document-body p, .vehicle-title > span,
+.vehicle-specs span, .vehicle-specs small, .fact > span,
+.page-heading p, .settings-hint { color: var(--hl-text-muted); }
+.row-name small, .row-title small, .task-title small { font-size: 12px; }
+.fact > strong { color: var(--hl-text); font-weight: 500; }
+.table-heading { color: var(--hl-text-muted); font-weight: 500; }
+button.table-row:hover .row-title strong,
+.table-row a:hover, .task-title:hover strong { text-decoration: underline; text-underline-offset: 3px; }
+.tabs > button.active { font-weight: 500; }
+
+/* A small in-row marker makes the current destination unambiguous, not louder. */
+.nav-item { position: relative; }
+.nav-item.active { border-color: var(--hl-border-hover); font-weight: 600; }
+.nav-item.active::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 8px; width: 2px; background: var(--hl-accent); opacity: .8; }
+.nav-group-label { font-weight: 500; color: var(--hl-text-muted); }
+
+/* Attention remains in the same section; color is restricted to meaningful status cues. */
+.attention-section[data-has-items="true"] .section-heading-icon { color: var(--hl-warning); }
+.attention-section[data-has-items="true"] .section-count { color: var(--hl-text); }
+.attention-item strong { font-size: 14px; font-weight: 500; color: var(--hl-text); }
+.attention-item .attention-content { min-width: 0; }
+.attention-item .attention-context { display: flex; flex-wrap: wrap; gap: 2px 10px; font-size: 12px; color: var(--hl-text-muted); }
+.attention-context time { font-size: 11px; font-variant-numeric: tabular-nums; color: var(--hl-text-muted); }
+.attention-context > span + time::before { content: '·'; margin-right: 10px; color: var(--hl-text-dim); }
+.attention-item[data-severity="OVERDUE"],
+.attention-item[data-severity="CRITICAL"],
+.attention-item[data-severity="BLOCKED"] { box-shadow: inset 2px 0 0 #f8717166; }
+.attention-item[data-severity="OVERDUE"] .attention-indicator,
+.attention-item[data-severity="CRITICAL"] .attention-indicator,
+.attention-item[data-severity="BLOCKED"] .attention-indicator { background: var(--hl-danger); }
+.attention-item .attention-open-indicator { color: var(--hl-text-muted); }
+.attention-item:hover strong { text-decoration: underline; text-underline-offset: 3px; }
+.attention-item:hover .attention-open-indicator { color: var(--hl-text); }
+.status-badge { font-weight: 500; }
+.status-badge .badge-alert-icon { flex-shrink: 0; }
+.attention-item .status-badge { font-size: 10px; }
+.status-OVERDUE, .status-CRITICAL, .status-BLOCKED { border-color: #ef444455; }
+.status-DUE_SOON, .status-DUE, .status-HIGH, .status-LOW_STOCK { border-color: #f59e0b55; }
+.quiet-badge.warning { border-color: #f59e0b55; font-weight: 500; }
+
+/* The same tiles now read as actions rather than passive labels. */
+.quick-add-grid button > span { color: var(--hl-text); font-weight: 500; line-height: 1.35; }
+.quick-add-grid button > svg:first-child { color: var(--hl-text-secondary); }
+.quick-add-grid button > .quick-add-indicator { color: var(--hl-text-muted); stroke-width: 1.8; }
+.quick-add-grid button:not(:disabled):hover { border-color: var(--hl-border-hover); }
+.quick-add-grid button:not(:disabled):hover > .quick-add-indicator { color: var(--hl-accent); }
+.quick-add-grid button:not(:disabled):active { border-color: var(--hl-accent-border); }
+.quick-add-grid button:disabled:hover { background: var(--hl-card); border-color: var(--hl-border); color: var(--hl-text-dim); }
+.quick-add-grid button:disabled .quick-add-indicator { color: var(--hl-text-dim); }
+
+/* Readable action → object → actor/date, without enlarging the feed's spacing. */
+.activity-main { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; min-width: 0; }
+.activity-item strong, .activity-feed.compact .activity-item strong { color: var(--hl-text); font-weight: 500; }
+.activity-object, .activity-feed.compact .activity-object { margin-left: 0; color: var(--hl-text-secondary); display: inline; overflow-wrap: anywhere; }
+.activity-object::before { content: '·'; color: var(--hl-text-dim); margin-right: 8px; }
+.activity-item small, .activity-feed.compact .activity-item small { color: var(--hl-text-muted); font-size: 10px; line-height: 1.5; }
+.activity-item time, .activity-feed.compact .activity-item time { color: var(--hl-text-muted); font-size: 10px; line-height: 1.5; font-variant-numeric: tabular-nums; }
+.activity-item .activity-open-indicator { color: var(--hl-text-dim); flex-shrink: 0; }
+.activity-item:hover strong { text-decoration: underline; text-underline-offset: 3px; }
+.activity-item:hover .activity-open-indicator { color: var(--hl-text-secondary); }
+
+/* Empty views tell the user what is absent and provide the relevant next action. */
+.empty-state h3, .empty-state.small h3,
+.clear-state strong, .upcoming-empty strong { color: var(--hl-text); font-weight: 500; }
+.empty-state p, .empty-state.small p,
+.clear-state p, .upcoming-empty p { color: var(--hl-text-muted); }
+.empty-state-action { display: flex; justify-content: center; max-width: 100%; }
+.empty-state-action .hl-button { max-width: 100%; }
+.empty-state-link { display: inline-flex; align-items: center; justify-content: center; gap: 7px; color: var(--hl-text-secondary); font-size: 12px; font-weight: 500; margin-top: 10px; }
+.empty-state-link:hover { color: var(--hl-text); text-decoration: underline; text-underline-offset: 3px; }
+.empty-state-link > svg { color: var(--hl-text-muted); }
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  .summary-label { font-size: 10px; }
+  .summary-number > span { font-size: 11px; }
+  .activity-item time, .activity-feed.compact .activity-item time { font-size: 9px; }
+}
+@media (max-width: 767px) {
+  .section-heading h2 { font-size: 16px; }
+  .summary-label { font-size: 10px; }
+  .summary-number > span { font-size: 11px; }
+  .attention-item strong { font-size: 13px; }
+  .attention-item .attention-context { font-size: 11px; }
+  .attention-context time { font-size: 10px; }
+  .attention-item .status-badge { font-size: 9px; }
+  .attention-item .attention-open-indicator { width: 13px; }
+  .activity-item { gap: 10px; }
+  .activity-item time, .activity-feed.compact .activity-item time { font-size: 9px; max-width: 80px; min-width: 65px; text-align: right; white-space: normal; }
+  .activity-item .activity-open-indicator { width: 12px; }
+  .activity-item small, .activity-feed.compact .activity-item small { font-size: 10px; }
+  .row-name small, .row-title small, .task-title small { font-size: 11px; }
+}

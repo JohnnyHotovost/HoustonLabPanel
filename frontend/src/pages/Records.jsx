@@ -22,6 +22,7 @@ import {
   Clock,
   Wallet,
   Search,
+  RotateCcw,
 } from "lucide-react";
 import { useI18n } from "../lib/i18n";
 import { useApp } from "../lib/context";
@@ -58,6 +59,8 @@ export function ActivityFeed({ items, compact = false }) {
               key={item.id}
               className="activity-item"
               data-testid={`activity-${item.id}`}
+              type="button"
+              title={t('activity.changes')}
               onClick={() => setSelected(item)}
             >
               <span
@@ -71,21 +74,28 @@ export function ActivityFeed({ items, compact = false }) {
                   <Activity size={13} />
                 )}
               </span>
-              <div>
-                <strong>{t(`activity.${item.action}`)}</strong>
+              <div className="activity-content">
+                <div className="activity-main">
+                <strong data-testid={`activity-action-${item.id}`}>{t(`activity.${item.action}`)}</strong>
                 {item.object_name && (
-                  <span className="activity-object">{item.object_name}</span>
+                  <span className="activity-object" data-testid={`activity-object-${item.id}`}>{item.object_name}</span>
                 )}
-                <small>{t("activity.by", { name: item.actor_name })}</small>
+                </div>
+                <small data-testid={`activity-actor-${item.id}`}>{t("activity.by", { name: item.actor_name })}</small>
               </div>
-              <time>
+              <time
+                dateTime={item.created_at}
+                data-testid={`activity-date-${item.id}`}
+                title={date(item.created_at, {hour:'2-digit', minute:'2-digit'})}
+              >
                 {date(
                   item.created_at,
                   compact
-                    ? { year: undefined }
+                    ? { year: undefined, hour: '2-digit', minute: '2-digit' }
                     : { hour: "2-digit", minute: "2-digit" },
                 )}
               </time>
+              <ChevronRight size={14} className="activity-open-indicator" aria-hidden="true" />
             </button>
           ))}
         </div>
@@ -478,13 +488,15 @@ export default function Records({
       ) : (
         <Empty
           icon={Icon}
-          title={t(`${module}.empty`)}
-          description={
-            module === "expenses" ? null : t(`${module}.empty.detail`)
-          }
+          title={t(tab !== 'all' ? 'common.emptyView' : `${module}.empty`)}
+          description={t(tab !== 'all' ? 'common.emptyView.detail' : `${module}.empty.detail`)}
           small={embedded}
           action={
-            canWrite && (
+            tab !== 'all' ? (
+              <Btn icon={RotateCcw} data-testid="records-clear-filters" onClick={() => setTab('all')}>
+                {t('common.clearFilters')}
+              </Btn>
+            ) : canWrite && (
               <Btn
                 icon={Plus}
                 variant="primary"

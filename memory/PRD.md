@@ -108,6 +108,30 @@ User request:
 5. Appliance configuration templates and editable generated profiles; room maintenance/history aggregation.
 6. Document metadata/version/superseded/restore flows and complete cross-object linking UI (schema supports explicit targets already).
 
+### UX clarity pass — 2026-10-07
+
+Owner's latest direction (visual identity remains the baseline):
+> Keep the current visual design direction. Do not redesign the app. Improve clarity and intuitiveness through better information hierarchy and readability: stronger text hierarchy, clearer distinction between primary and secondary information, more obvious clickable/actionable elements, better section recognition, improved scanability, and slightly stronger visual emphasis for important statuses and alerts. This is a UX clarity pass, not a redesign.
+
+Selected scope: **Overview and shared UI elements, carried consistently across existing screens.**
+> Preserve the current HoustonLab visual identity exactly as the baseline. Keep the dark premium aesthetic, current spacing philosophy, restrained use of accent colors, subtle borders and surfaces, compact technical feel, current sidebar and topbar structure. Do not make the UI brighter, more colorful, more rounded, more SaaS-like, or more visually busy.
+
+Implemented without changing the design language:
+- Section headings now use18px/600 on desktop and16px/600 on mobile. Card labels, supporting text, table headings and record titles have clearer primary/secondary emphasis using existing neutral color tokens.
+- Needs Attention has conditional alert recognition, clearer title/context/status hierarchy, a discreet critical-row edge, existing due dates when available, and a non-redundant review label. Severity is still the backend's computed value.
+- Quick Add uses explicit action-verb labels in EN/CZ, more visible plus affordances and restrained hover/focus cues. Viewer permissions and disabled behavior are retained.
+- Active sidebar rows gain a2px inset emerald marker and stronger label/border weight. No sidebar or topbar structure/geometry changes.
+- Activity rows distinguish action, object, actor and timestamp; compact rows include actual time, full localized tooltip and dateTime semantics. A quiet chevron signals the existing change-detail action.
+- Empty states state what is missing directly, retain contextual Add actions, and distinguish a filtered empty view from an empty collection. Clear Filters restores the existing view without writing data. Upcoming empty state includes a link to existing tasks.
+- Palette, fonts, cards, corner radii, background surfaces, grid, spacing scale, base layout, auth/security, APIs, maintenance calculations and PostgreSQL schema remain unchanged. No new dependencies or data migrations.
+
+Verification:
+- Production build passed; main-agent before/after1920x800 screenshots confirm the same layout with targeted hierarchy improvements.
+- Testing report `/app/test_reports/iteration_4.json`: no UI/integration/design defects found; EN/CZ, MEMBER/VIEWER, clear-filter flows, disabled quick actions, attention/activity links and responsive widths360/390/768/1024/1366/1920 verified.
+- Temporary QA accounts and only their own sessions/preference audit entries removed by exact IDs. All20 persistent user/business table row-hash maps match the pre-change baseline exactly after cleanup.
+- All backend/migration files, palette tokens, Shell.jsx and base App.css hashes remain identical. No user records changed by this pass.
+- No unrelated large-file refactor or permanent testing credentials were introduced; both are outside this scoped UX request.
+
 ### P1 — operational breadth
 - Runtime counter maintenance and calendar month/year intervals.
 - QR identifiers in labels/scanning/printing and context-aware add/move experiences (UUID-backed identities already stable).

@@ -18,6 +18,7 @@ import {
   MapPin,
   FileText,
   CheckCheck,
+  CircleAlert,
 } from "lucide-react";
 import { useI18n } from "../lib/i18n";
 import { useApp } from "../lib/context";
@@ -145,10 +146,17 @@ export default function Overview() {
         ))}
       </div>
       <div className="attention-grid">
-        <section className="overview-section attention-section">
+        <section
+          className="overview-section attention-section"
+          aria-labelledby="overview-attention-heading"
+          data-testid="overview-attention-section"
+          data-has-items={data.attention.length > 0}
+        >
           <SectionHeader
             title={t("overview.attention")}
             meta={data.attention.length}
+            id="overview-attention-heading"
+            icon={data.attention.length ? CircleAlert : undefined}
           >
             <span
               className={`quiet-badge ${data.attention.length ? "warning" : "success"}`}
@@ -156,7 +164,7 @@ export default function Overview() {
               {!data.attention.length && <Check size={12} />}{" "}
               {t(
                 data.attention.length
-                  ? "overview.attentionCount"
+                  ? "overview.reviewRequired"
                   : "overview.allClear",
                 { count: data.attention.length },
               )}
@@ -169,18 +177,25 @@ export default function Overview() {
                   to={item.path}
                   className="attention-item"
                   data-testid={`attention-${item.id}`}
+                  data-severity={item.status}
+                  title={item.title}
                   key={item.id}
                 >
-                  <span className="attention-indicator" />
-                  <span>
-                    <strong>{item.title}</strong>
-                    <small>{item.context}</small>
+                  <span className="attention-indicator" aria-hidden="true" />
+                  <span className="attention-content">
+                    <strong data-testid={`attention-title-${item.id}`}>{item.title}</strong>
+                    <small className="attention-context" data-testid={`attention-context-${item.id}`}>
+                      {item.context && <span>{item.context}</span>}
+                      {item.date && <time dateTime={item.date} data-testid={`attention-date-${item.id}`}>
+                        {t('overview.dueOn', { date: date(item.date) })}
+                      </time>}
+                    </small>
                   </span>
                   <Badge
                     status={item.status}
                     testId={`attention-status-${item.id}`}
                   />
-                  <ArrowUpRight size={14} />
+                  <ArrowUpRight size={15} className="attention-open-indicator" aria-hidden="true" />
                 </Link>
               ))}
             </div>
@@ -232,7 +247,10 @@ export default function Overview() {
               <strong data-testid="upcoming-empty-title">
                 {t("overview.upcoming.empty")}
               </strong>
-              <p>{t("overview.upcoming.detail")}</p>
+              <p data-testid="upcoming-empty-description">{t("overview.upcoming.detail")}</p>
+              <Link to="/tasks" className="empty-state-link" data-testid="upcoming-view-tasks">
+                {t('overview.viewTasks')}<ArrowRight size={13} aria-hidden="true" />
+              </Link>
             </div>
           )}
         </section>
@@ -273,12 +291,14 @@ export default function Overview() {
               <button
                 key={kind}
                 data-testid={`quick-add-${kind}`}
+                type="button"
                 disabled={!canWrite}
+                title={!canWrite ? t('common.actionsDisabled') : t(`overview.quick.${kind}`)}
                 onClick={() => setQuickAdd(kind)}
               >
-                <Icon size={18} strokeWidth={1.5} />
-                <span>{t(`add.${kind}`)}</span>
-                <Plus size={12} />
+                <Icon size={18} strokeWidth={1.6} aria-hidden="true" />
+                <span data-testid={`quick-add-label-${kind}`}>{t(`overview.quick.${kind}`)}</span>
+                <Plus size={15} className="quick-add-indicator" aria-hidden="true" />
               </button>
             ))}
           </div>

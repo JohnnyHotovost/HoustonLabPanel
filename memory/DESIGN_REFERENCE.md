@@ -67,3 +67,20 @@ Build, screenshot comparison, neutral background/emerald active states, font loa
 - Backend and migrations are byte-identical to the pre-change baseline. Temporary MEMBER/VIEWER accounts and only their test-authored preference/session records were removed by exact IDs.
 - A comparison flagged concurrent real-owner activity: preference edits, vehicle creation and a maintenance definition. Audit timestamps and OWNER actor roles identify these as legitimate household additions, not QA records. They are preserved. Never overwrite current data to make a test snapshot match.
 - Existing unauthenticated401 responses remain intentional; no authentication/security behavior changed to hide normal browser console entries.
+
+## Clarity-only refinement contract — 2026-10-07
+
+The owner explicitly approved the current HoustonLab identity and requested **a clarity/hierarchy pass, not another redesign**. The current palette, backgrounds, cards, borders, corner radii, fonts, spacing philosophy, technical density, sidebar and topbar structure remain the baseline.
+
+Permitted refinements implemented:
+- Stronger section-title weight and modest scale (18px desktop /16px mobile).
+- Existing secondary text tokens used for readable metadata; clearer title/value/description distinction, not globally brighter surfaces.
+- Conditional attention icon, readable semantic badges, discreet severity marker; no pulsing/glows or new accent colors.
+- Explicit Quick Add action verbs and a visible plus glyph; improved enabled hover/focus while retaining viewer-disabled controls.
+- Active navigation identified with a thin inset marker, without moving or enlarging rows.
+- Activity action/object separation, readable actor and exact time, quiet detail chevron.
+- Direct, useful empty-state wording, contextual actions and Clear Filters for views with no matches.
+
+Changes live in a documented clarity section of the existing visual stylesheet and minimal shared/Overview presentation markup. No additional theme layer or replacement design system was added. New EN/CZ copy uses translation keys; all user-entered titles/names/notes are preserved.
+
+Build and responsive EN/CZ tests passed (`iteration_4.json`). Exact post-cleanup fingerprints confirm all original household records unchanged; backend, migrations, palette, shell and base layout remain byte-identical. Continue this restraint in future work unless the owner explicitly requests a new design direction.

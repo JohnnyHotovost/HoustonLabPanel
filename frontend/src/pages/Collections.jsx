@@ -11,6 +11,7 @@ import {
   ChevronRight,
   Archive,
   SlidersHorizontal,
+  RotateCcw,
 } from "lucide-react";
 import { useI18n } from "../lib/i18n";
 import { useApp } from "../lib/context";
@@ -24,6 +25,7 @@ import {
   Tabs,
   useData,
   TextInput,
+  Btn,
 } from "../components/common";
 
 export default function Collections({ module }) {
@@ -92,11 +94,17 @@ export default function Collections({ module }) {
         Object.values(e.profile).join(" ")
       )
         .toLowerCase()
-        .includes(query.toLowerCase()),
+        .includes(query.trim().toLowerCase()),
     );
   const roomList = (locations || [])
     .filter((l) => tab !== "rooms" || l.type === "ROOM")
-    .filter((l) => l.path.toLowerCase().includes(query.toLowerCase()));
+    .filter((l) => l.path.toLowerCase().includes(query.trim().toLowerCase()));
+  const constrainedView = !!query.trim() || ['previous', 'archived'].includes(tab);
+  const clearFilters = () => {
+    setQuery('');
+    if (['previous', 'archived'].includes(tab)) setTab('active');
+  };
+  const clearAction = <Btn icon={RotateCcw} data-testid="collection-clear-filters" onClick={clearFilters}>{t('common.clearFilters')}</Btn>;
   return (
     <div className="entrance">
       <PageHeader
@@ -171,11 +179,11 @@ export default function Collections({ module }) {
         ) : (
           <Empty
             icon={House}
-            title={t(tab === "rooms" ? "home.empty" : "locations.empty")}
+            title={t(query.trim() ? 'common.noResults' : tab === "rooms" ? "home.empty" : "locations.empty")}
             description={t(
-              tab === "rooms" ? "home.empty.detail" : "locations.empty.detail",
+              query.trim() ? 'common.noResults.detail' : tab === "rooms" ? "home.empty.detail" : "locations.empty.detail",
             )}
-            action={<AddButton kind="location" label={t("home.addRoom")} />}
+            action={query.trim() ? clearAction : <AddButton kind="location" label={t(tab === 'rooms' ? "home.addRoom" : 'locations.add')} />}
           />
         )
       ) : list.length ? (
@@ -285,19 +293,16 @@ export default function Collections({ module }) {
         <Empty
           icon={Icon}
           title={t(
-            query
+            query.trim()
               ? "common.noResults"
-              : `${module === "home" ? "home.assetEmpty" : module + ".empty"}`,
+              : constrainedView ? 'common.emptyView' : `${module === "home" ? "home.assetEmpty" : module + ".empty"}`,
           )}
           description={
-            !query
-              ? t(
-                  `${module === "home" ? "home.assetEmpty" : module + ".empty"}.detail`,
-                )
-              : null
+            t(constrainedView ? (query.trim() ? 'common.noResults.detail' : 'common.emptyView.detail')
+              : `${module === "home" ? "home.assetEmpty" : module + ".empty"}.detail`)
           }
           action={
-            !query && (
+            constrainedView ? clearAction : (
               <AddButton
                 kind={kind}
                 label={t(module === "home" ? "home.addAsset" : `${module}.add`)}
